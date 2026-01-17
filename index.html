@@ -1073,41 +1073,54 @@
                 joinBtn.disabled = true;
                 
                 try {
-                    // Send to your backend or Formspree/email service
-                    const response = await submitEmailToBackend(email);
+                    // ✅ FIXED: Use correct Formspree submission
+                    const success = await submitToFormspree(email, isCTA ? 'cta' : 'hero');
                     
-                    // Show success message
-                    successMessage.style.display = 'block';
-                    successMessage.innerHTML = `
-                        <i class="fas fa-check-circle"></i> 
-                        Thank you, ${email.split('@')[0]}! You're #${Math.floor(Math.random() * 1000) + 1250} on our waitlist.
-                        We'll notify you when we launch.
-                    `;
-                    
-                    // Track conversion in Google Analytics
-                    if (typeof gtag !== 'undefined') {
-                        gtag('event', 'waitlist_signup', {
-                            'event_category': 'engagement',
-                            'event_label': 'waitlist',
-                            'value': 1
-                        });
+                    if (success) {
+                        // Show success message
+                        successMessage.style.display = 'block';
+                        successMessage.innerHTML = `
+                            <i class="fas fa-check-circle"></i> 
+                            <strong>Thank you, ${email.split('@')[0]}!</strong><br>
+                            You're #${Math.floor(Math.random() * 1000) + 1250} on our waitlist.
+                            We'll notify you when we launch.
+                        `;
+                        
+                        // Track conversion in Google Analytics
+                        if (typeof gtag !== 'undefined') {
+                            gtag('event', 'waitlist_signup', {
+                                'event_category': 'engagement',
+                                'event_label': 'waitlist',
+                                'value': 1
+                            });
+                        }
+                        
+                        // Track in Cloudflare Analytics if available
+                        if (typeof Cloudflare !== 'undefined') {
+                            Cloudflare.sendEvent('waitlist_signup', {
+                                source: isCTA ? 'cta' : 'hero',
+                                email_hash: btoa(email).substring(0, 10) // Privacy
+                            });
+                        }
+                        
+                        // Reset form
+                        emailInput.value = '';
+                        joinBtn.innerHTML = isCTA ? 'Get Early Access' : 'Join Waitlist';
+                        joinBtn.disabled = false;
+                        
+                        // Scroll to success message
+                        successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        
+                        // Hide success message after 8 seconds
+                        setTimeout(() => {
+                            successMessage.style.display = 'none';
+                        }, 8000);
+                    } else {
+                        throw new Error('Form submission failed');
                     }
                     
-                    // Reset form
-                    emailInput.value = '';
-                    joinBtn.innerHTML = isCTA ? 'Get Early Access' : 'Join Waitlist';
-                    joinBtn.disabled = false;
-                    
-                    // Scroll to success message
-                    successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    
-                    // Hide success message after 8 seconds
-                    setTimeout(() => {
-                        successMessage.style.display = 'none';
-                    }, 8000);
-                    
                 } catch (error) {
-                    alert('There was an error. Please try again or contact us directly.');
+                    alert('There was an error. Please try again or email us at hello@summarizerlabs.com');
                     joinBtn.innerHTML = originalText;
                     joinBtn.disabled = false;
                 }
@@ -1120,27 +1133,38 @@
                 }
             });
         }
-        
-        // Simulated backend submission
-        async function submitEmailToBackend(email) {
-            // In production, replace with real API call
-            console.log('Submitting email to backend:', email);
+
+        async function submitToFormspree(email, source = 'direct') {
+            // Create FormData object (REQUIRED by Formspree)
+            const formData = new FormData();
+            formData.append('email', email);
+            formData.append('_replyto', email); // Optional: auto-reply to user
+            formData.append('_subject', `Waitlist Signup - ${source}`); // Email subject
+            formData.append('source', source); // Custom field
+            formData.append('timestamp', new Date().toISOString()); // Custom field
             
-            // Example: Using Formspree (free)
-            // const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     },
-            //     body: JSON.stringify({ 
-            //         email: email,
-            //         source: 'summarizer_labs_landing',
-            //         timestamp: new Date().toISOString()
-            //     })
-            // });
-            
-            // For now, simulate API delay
-            return new Promise(resolve => setTimeout(() => resolve({ success: true }), 800));
+            try {
+                // ✅ CORRECT Formspree API call
+                const response = await fetch('https://formspree.io/f/xnjjjrzv', {
+                    method: 'POST',
+                    body: formData, // ✅ Send FormData, NOT JSON
+                    headers: {
+                        'Accept': 'application/json' // ✅ REQUIRED header
+                    }
+                });
+                
+                // Check if successful
+                if (response.ok) {
+                    console.log('✅ Email submitted to Formspree:', email);
+                    return true;
+                } else {
+                    console.error('❌ Formspree error:', await response.text());
+                    return false;
+                }
+            } catch (error) {
+                console.error('❌ Network error:', error);
+                return false;
+            }
         }
         
         // Email validation
