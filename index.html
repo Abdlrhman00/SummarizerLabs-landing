@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeetSummary AI - Turn Meetings into Action</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --secondary: #8b5cf6;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --gray: #6b7280;
+            --success: #10b981;
+            --border: #e5e7eb;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #ffffff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header & Navigation */
+        header {
+            padding: 24px 0;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            color: var(--secondary);
+            font-size: 28px;
+        }
+        
+        .logo span {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--dark);
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero h1 span {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        .waitlist-form {
+            max-width: 500px;
+            margin: 0 auto 60px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .waitlist-input {
+            flex: 1;
+            padding: 16px 20px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .waitlist-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .waitlist-btn {
+            padding: 16px 32px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .waitlist-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            color: var(--gray);
+            font-size: 16px;
+        }
+        
+        /* How It Works */
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 60px;
+        }
+        
+        .how-it-works {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        
+        .step {
+            text-align: center;
+            padding: 30px;
+            border-radius: 16px;
+            background-color: var(--light);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .step:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        
+        .step-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            color: white;
+            font-size: 28px;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .step h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+        
+        .step p {
+            color: var(--gray);
+        }
+        
+        /* Features */
+        .features {
+            background-color: var(--light);
+            border-radius: 20px;
+            padding: 60px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+        
+        .feature {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .feature-icon {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 24px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature-content h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+        
+        .feature-content p {
+            color: var(--gray);
+        }
+        
+        /* Use Cases */
+        .use-cases {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .use-case {
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .use-case:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow);
+        }
+        
+        .use-case-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        /* Waitlist CTA */
+        .waitlist-cta {
+            text-align: center;
+            padding: 60px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .waitlist-cta h2 {
+            font-size: 36px;
+            margin-bottom: 16px;
+        }
+        
+        .waitlist-cta p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 60px 0 30px;
+            background-color: var(--dark);
+            color: white;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 40px;
+        }
+        
+        .footer-column h4 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-column ul li a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+        
+        /* Success Message */
+        .success-message {
+            display: none;
+            padding: 16px;
+            background-color: var(--success);
+            color: white;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .how-it-works,
+            .features-grid,
+            .use-cases {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 40px;
+            }
+            
+            .waitlist-form {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .features {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-brain logo-icon"></i>
+                <span>MeetSummary AI</span>
+            </a>
+            
+            <div class="nav-links">
+                <a href="#how-it-works">How It Works</a>
+                <a href="#features">Features</a>
+                <a href="#use-cases">Use Cases</a>
+                <a href="#waitlist">Join Waitlist</a>
+            </div>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Turn meetings into <span>action</span> — automatically.</h1>
+            <p>MeetSummary AI automatically transcribes, summarizes, and extracts action items from your meeting recordings, so your team can focus on executing — not note-taking.</p>
+            
+            <div class="waitlist-form" id="waitlist-form">
+                <input type="email" class="waitlist-input" id="email-input" placeholder="Enter your work email" required>
+                <button class="waitlist-btn" id="join-btn">Join Waitlist</button>
+            </div>
+            
+            <div class="success-message" id="success-message">
+                <i class="fas fa-check-circle"></i> Thank you! You've been added to the waitlist. We'll notify you when we launch.
+            </div>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">1,250+</div>
+                    <div class="stat-label">Early Access Signups</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">97%</div>
+                    <div class="stat-label">Accuracy Rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">40+</div>
+                    <div class="stat-label">Hours Saved Monthly</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="how-it-works">
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <div class="step-number">1</div>
+                    <h3>Upload Recording</h3>
+                    <p>Upload any meeting recording - audio or video. We support MP3, WAV, MP4, M4A and more.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="step-number">2</div>
+                    <h3>AI Processing</h3>
+                    <p>Our AI transcribes with speaker detection, extracts key points, and identifies action items.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="step-number">3</div>
+                    <h3>Get Summary & Tasks</h3>
+                    <p>Receive a clear, structured summary with decisions and actionable follow-up items.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section" id="features">
+        <div class="container">
+            <h2 class="section-title">Key Features</h2>
+            <div class="features">
+                <div class="features-grid">
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Accurate Transcription</h3>
+                            <p>High-accuracy speech-to-text with speaker diarization (who said what).</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>AI-Generated Summaries</h3>
+                            <p>Concise, structured summaries highlighting key decisions and outcomes.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Action Item Extraction</h3>
+                            <p>Automatically detects tasks, follow-ups, and assigns owners when mentioned.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Secure & Private</h3>
+                            <p>Your data stays yours — encrypted, access-controlled, and privacy-first.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Organized & Searchable</h3>
+                            <p>Tag, organize, and search through all your meeting history effortlessly.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Dashboard & Analytics</h3>
+                            <p>Track meeting history, processing status, and team meeting insights.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section class="section" id="use-cases">
+        <div class="container">
+            <h2 class="section-title">Perfect For</h2>
+            <div class="use-cases">
+                <div class="use-case">
+                    <div class="use-case-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Remote & Hybrid Teams</h3>
+                    <p>Keep distributed teams aligned and accountable with clear meeting outcomes.</p>
+                </div>
+                
+                <div class="use-case">
+                    <div class="use-case-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3>Consultants & Agencies</h3>
+                    <p>Document client meetings accurately and extract actionable deliverables.</p>
+                </div>
+                
+                <div class="use-case">
+                    <div class="use-case-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Startups & Product Teams</h3>
+                    <p>Turn product discussions into clear feature specs and development tasks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Waitlist CTA -->
+    <section class="section">
+        <div class="container">
+            <div class="waitlist-cta">
+                <h2>Join the Waitlist</h2>
+                <p>Be among the first to get early access, special launch pricing, and help shape the future of meeting productivity.</p>
+                
+                <div class="waitlist-form">
+                    <input type="email" class="waitlist-input" id="cta-email-input" placeholder="Enter your work email" required>
+                    <button class="waitlist-btn" id="cta-join-btn">Get Early Access</button>
+                </div>
+                
+                <p style="font-size: 14px; margin-top: 20px;">No spam. Unsubscribe anytime. Early access invites sent first.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <div class="footer-logo">MeetSummary AI</div>
+                    <p>Turn meetings into execution.</p>
+                    <p style="margin-top: 20px; color: #d1d5db; max-width: 300px;">Meetings should move you forward, not slow you down.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <ul>
+                            <li><a href="#how-it-works">How It Works</a></li>
+                            <li><a href="#features">Features</a></li>
+                            <li><a href="#use-cases">Use Cases</a></li>
+                            <li><a href="#waitlist">Pricing</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Security</a></li>
+                            <li><a href="#">Cookie Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2023 MeetSummary AI. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+        
+        // Form submission handler
+        function handleWaitlistSubmit(emailInputId, btnId) {
+            const emailInput = document.getElementById(emailInputId);
+            const joinBtn = document.getElementById(btnId);
+            const successMessage = document.getElementById('success-message');
+            
+            joinBtn.addEventListener('click', function() {
+                const email = emailInput.value.trim();
+                
+                if (!email) {
+                    alert('Please enter your email address');
+                    return;
+                }
+                
+                if (!isValidEmail(email)) {
+                    alert('Please enter a valid email address');
+                    return;
+                }
+                
+                // Simulate API call
+                joinBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Joining...';
+                joinBtn.disabled = true;
+                
+                // In a real app, you would send this to your backend
+                setTimeout(() => {
+                    console.log('Email submitted to waitlist:', email);
+                    
+                    // Show success message
+                    successMessage.style.display = 'block';
+                    
+                    // Reset form
+                    emailInput.value = '';
+                    joinBtn.innerHTML = 'Join Waitlist';
+                    joinBtn.disabled = false;
+                    
+                    // Scroll to success message
+                    successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                    // Hide success message after 5 seconds
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 5000);
+                }, 1000);
+            });
+            
+            // Also handle Enter key
+            emailInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    joinBtn.click();
+                }
+            });
+        }
+        
+        // Email validation
+        function isValidEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        
+        // Initialize both forms
+        document.addEventListener('DOMContentLoaded', function() {
+            handleWaitlistSubmit('email-input', 'join-btn');
+            handleWaitlistSubmit('cta-email-input', 'cta-join-btn');
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    
+                    if (href === '#') return;
+                    
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        // Close mobile menu if open
+                        if (window.innerWidth <= 768) {
+                            document.querySelector('.nav-links').style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
