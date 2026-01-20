@@ -1,0 +1,31 @@
+# robots.txt for Summarizer Labs
+# Generated: January 2024
+
+User-agent: *
+Allow: /
+Allow: /sitemap.xml
+Allow: /images/
+Allow: /assets/
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+
+# Sitemap location
+Sitemap: https://summarizerlabs.com/sitemap.xml
+
+# Crawl delay (optional, prevent server overload)
+# Crawl-delay: 10
+
+# Block AI scrapers
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
