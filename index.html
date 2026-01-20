@@ -34,7 +34,7 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <!-- <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"> -->
     <link rel="manifest" href="/site.webmanifest">
     
     <!-- ==================== PRELOAD CRITICAL RESOURCES ==================== -->
@@ -306,12 +306,16 @@
             flex-wrap: wrap;
             min-height: 120px;
             position: relative;
+            contain: layout style;
         }
         
         .stat-item {
             text-align: center;
             padding: 20px;
             min-height: 100px;
+            min-width: 150px;
+            opacity: 0;
+            animation: fadeIn 0.5s ease 0.3s forwards;
         }
         
         .stat-number {
@@ -324,13 +328,16 @@
             margin-bottom: 8px;
             line-height: 1;
             display: inline-block;
-            min-width: 150px;
+            width: 150px;
+            height: 55px;
         }
         
         .stat-label {
             color: var(--gray);
             font-size: 16px;
             font-weight: 500;
+            opacity: 0;
+            animation: fadeIn 0.5s ease 0.5s forwards;
         }
         
         /* How It Works */
@@ -851,8 +858,14 @@
                 font-size: 28px;
             }
         }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
     </style>
 </head>
+<main>
 <body>
     <!-- Header -->
     <header>
@@ -884,7 +897,7 @@
             
             <div class="waitlist-form" id="waitlist-form">
                 <input type="email" class="waitlist-input" id="email-input" placeholder="Enter your work email" required>
-                <button class="waitlist-btn" id="join-btn">Get Early Access</button>
+                <button class="waitlist-btn" id="join-btn" aria-label="Get Early Access to Summarizer Labs">Get Early Access</button>
             </div>
             
             <div class="success-message" id="success-message">
@@ -1102,7 +1115,7 @@
                 
                 <div class="cta-form">
                     <input type="email" class="cta-input" id="cta-email-input" placeholder="Enter your work email" required>
-                    <button class="cta-btn" id="cta-join-btn">Get Early Access</button>
+                    <button class="cta-btn" id="cta-join-btn" aria-label="Join Summarizer Labs Waitlist">Get Early Access</button>
                 </div>
                 
                 <p style="font-size: 14px; margin-top: 20px; opacity: 0.8; position: relative; z-index: 2;">
@@ -1186,6 +1199,7 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer>
