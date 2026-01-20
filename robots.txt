@@ -3,9 +3,9 @@
 
 User-agent: *
 Allow: /
-Allow: /sitemap.xml
-Allow: /images/
-Allow: /assets/
+
+# Sitemap location
+Sitemap: https://summarizerlabs.com/sitemap.xml
 
 # Disallow admin and private areas
 Disallow: /admin/
@@ -13,9 +13,6 @@ Disallow: /private/
 Disallow: /api/
 Disallow: /wp-admin/
 Disallow: /wp-includes/
-
-# Sitemap location
-Sitemap: https://summarizerlabs.com/sitemap.xml
 
 # Crawl delay (optional, prevent server overload)
 # Crawl-delay: 10
