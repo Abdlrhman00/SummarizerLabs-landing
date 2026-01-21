@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Summarizer Labs: The Universal AI Layer for Audio & Video Knowledge</title>
-    <meta name="description" content="Turn meetings, podcasts, and YouTube videos into actionable knowledge. AI-powered summarization, transcription, and action item extraction. Join the waitlist.">
-    <meta name="keywords" content="AI meeting summaries, YouTube transcription, podcast summaries, audio transcription, meeting notes automation, video summarizer">
+    <title>Summarizer Labs: AI Video Summarizer & Meeting Transcription</title>
+    <meta name="description" content="AI transcription & meeting summary tool. Summarize YouTube, podcasts & meetings automatically. 97% accuracy. Save 7+ hours/week. Start free →">
+    <meta name="keywords" content="AI meeting summaries, YouTube transcription, podcast summaries, audio transcription, video summarizer, speech to text, meeting notes automation, Summarizer Labs">
     <meta name="author" content="Summarizer Labs">
-    
+
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://summarizerlabs.com/">
     <meta property="og:title" content="Summarizer Labs: The Universal AI Layer for Audio & Video">
@@ -63,13 +63,6 @@
             "priceCurrency": "USD",
             "availability": "https://schema.org/PreOrder",
             "description": "Early Access Waitlist"
-        },
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.8",
-            "ratingCount": "1250",
-            "bestRating": "5",
-            "worstRating": "1"
         },
         "author": {
             "@type": "Organization",
@@ -131,7 +124,7 @@
         
         /* Header & Navigation */
         header {
-            padding: 24px 0;
+            padding: 16px 0;
             border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
@@ -140,13 +133,13 @@
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
-        
+
         .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
@@ -156,24 +149,26 @@
             color: var(--dark);
             text-decoration: none;
         }
-        
+
         .logo-icon {
             color: var(--primary);
             font-size: 28px;
         }
-        
+
         .logo span {
             background: linear-gradient(90deg, var(--primary), var(--primary-dark));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
-        
+
         .nav-links {
             display: flex;
             gap: 32px;
+            /* ✅ CRITICAL FIX: This ensures text links stay centered with the taller button */
+            align-items: center; 
         }
-        
+
         .nav-links a {
             text-decoration: none;
             color: var(--gray);
@@ -181,11 +176,11 @@
             transition: all 0.3s;
             position: relative;
         }
-        
+
         .nav-links a:hover {
             color: var(--primary);
         }
-        
+
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -196,11 +191,31 @@
             background: linear-gradient(90deg, var(--primary), var(--primary-dark));
             transition: width 0.3s;
         }
-        
+
         .nav-links a:hover::after {
             width: 100%;
         }
-        
+
+        /* The "Join Waitlist" Button Style */
+        .nav-cta-btn {
+            background-color: var(--primary);
+            color: white !important;
+            padding: 10px 24px;
+            border-radius: 8px;
+            transition: transform 0.2s ease, background-color 0.2s;
+        }
+
+        .nav-cta-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(99, 91, 255, 0.3);
+            color: white;
+        }
+
+        .nav-cta-btn::after {
+            display: none;
+        }
+
         .mobile-menu-btn {
             display: none;
             background: none;
@@ -213,7 +228,7 @@
         
         /* Hero Section */
         .hero {
-            padding: 100px 0 80px;
+            padding: 60px 0 80px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -252,12 +267,12 @@
             font-size: 20px;
             color: var(--gray);
             max-width: 600px;
-            margin: 0 auto 40px;
+            margin: 0 auto 24px;
         }
         
         .waitlist-form {
             max-width: 500px;
-            margin: 0 auto 60px;
+            margin: 0 auto 0px;
             display: flex;
             gap: 10px;
         }
@@ -296,6 +311,45 @@
             transform: translateY(-2px);
             box-shadow: var(--shadow-hover);
         }
+
+        /* Incentives Container */
+        .hero-incentives {
+            margin-top: 18px;
+            text-align: center;
+        }
+
+        /* 1. Urgency Badge */
+        .urgency-badge {
+            background: linear-gradient(135deg, #F59E0B, #D97706);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 25px;
+            font-weight: 600;
+            font-size: 14px;
+            animation: pulse 2s infinite;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3); /* Nice orange glow */
+        }
+
+        /* 2. Trust Icons Container */
+        .trust-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 0; /* Tight spacing to the badge */
+        }
+
+        /* Individual Trust Item */
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gray);
+            font-size: 14px; /* Explicit size for readability */
+            font-weight: 500;
+        }
         
         .hero-stats {
             display: flex;
@@ -327,7 +381,7 @@
             margin-bottom: 8px;
             line-height: 1;
             display: inline-block;
-            width: 150px;
+            /* width: 150px; */
             height: 55px;
         }
         
@@ -341,7 +395,7 @@
         
         /* How It Works */
         .section {
-            padding: 100px 0;
+            padding: 80px 0;
         }
         
         .section-title {
@@ -722,6 +776,11 @@
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
         
         /* Responsive */
         @media (max-width: 1100px) {
@@ -779,7 +838,7 @@
             }
             
             .hero {
-                padding: 80px 0 60px;
+                padding: 40px 0 60px;
             }
             
             .hero h1 {
@@ -820,6 +879,14 @@
             
             .features {
                 padding: 50px 30px;
+            }
+            .waitlist-form {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .waitlist-btn {
+                width: 100%;
             }
         }
         
@@ -878,8 +945,7 @@
                 <a href="#how-it-works">How It Works</a>
                 <a href="#features">Features</a>
                 <a href="#use-cases">Use Cases</a>
-                <a href="#faq">FAQ</a>
-                <a href="#waitlist">Join Waitlist</a>
+                <a href="#waitlist" class="nav-cta-btn">Join Waitlist</a>
             </div>
             
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -897,6 +963,29 @@
             <div class="waitlist-form" id="waitlist-form">
                 <input type="email" class="waitlist-input" id="email-input" placeholder="Enter your work email" required>
                 <button class="waitlist-btn" id="join-btn" aria-label="Get Early Access to Summarizer Labs">Get Early Access</button>
+            </div>
+
+            <div class="hero-incentives">
+                
+                <div class="urgency-badge">
+                    <i class="fas fa-clock"></i> First 100 waitlist users get 50% off
+                </div>
+
+                <div class="trust-icons">
+                    <div class="trust-item">
+                        <i class="fas fa-shield-alt" style="color: var(--success);"></i>
+                        <span>GDPR Compliant</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-bolt" style="color: var(--primary);"></i>
+                        <span>2-5 Min Processing</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-language" style="color: var(--secondary);"></i>
+                        <span>50+ Languages</span>
+                    </div>
+                </div>
+
             </div>
             
             <div class="success-message" id="success-message">
@@ -1011,6 +1100,46 @@
         </div>
     </section>
 
+    <!-- <section class="section" id="comparison-table">
+        <div class="container">
+            <h2 class="section-title">Why Summarizer Labs Beats Other Tools</h2>
+            
+            <div style="max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 16px; box-shadow: var(--shadow);">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--border);">
+                            <th style="padding: 20px; text-align: left; color: var(--dark); font-size: 18px;">Feature</th>
+                            <th style="padding: 20px; text-align: center; color: var(--primary); font-size: 18px;">Summarizer Labs</th>
+                            <th style="padding: 20px; text-align: center; color: var(--gray); font-size: 18px;">Other Tools</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 20px; font-weight: 500;">URL Import (YouTube, Podcasts)</td>
+                            <td style="padding: 20px; text-align: center; color: var(--success);"><i class="fas fa-check-circle"></i> Included</td>
+                            <td style="padding: 20px; text-align: center; color: var(--gray);"><i class="fas fa-times"></i> Limited</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 20px; font-weight: 500;">Action Item Extraction</td>
+                            <td style="padding: 20px; text-align: center; color: var(--success);"><i class="fas fa-check-circle"></i> Automatic</td>
+                            <td style="padding: 20px; text-align: center; color: var(--gray);"><i class="fas fa-times"></i> Manual</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 20px; font-weight: 500;">Speaker Detection</td>
+                            <td style="padding: 20px; text-align: center; color: var(--success);"><i class="fas fa-check-circle"></i> Free</td>
+                            <td style="padding: 20px; text-align: center; color: var(--gray);"><i class="fas fa-dollar-sign"></i> Extra Cost</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 20px; font-weight: 500;">Cloud Storage Import</td>
+                            <td style="padding: 20px; text-align: center; color: var(--success);"><i class="fas fa-check-circle"></i> S3, Cloudinary, R2</td>
+                            <td style="padding: 20px; text-align: center; color: var(--gray);"><i class="fas fa-times"></i> Not Supported</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section> -->
+
     <!-- Features -->
     <section class="section" id="features">
         <div class="container">
@@ -1077,7 +1206,7 @@
                         </div>
                     </div>
 
-                    <div class="feature">
+                    <!-- <div class="feature">
                         <div class="feature-icon">
                             <i class="fas fa-folder"></i>
                         </div>
@@ -1095,7 +1224,7 @@
                             <h3>Cloud Storage Import</h3>
                             <p>Import directly from AWS S3, Cloudflare R2, Cloudinary, and other CDN-hosted media.</p>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -1129,25 +1258,6 @@
                     <h3>Startups & Product Teams</h3>
                     <p>Turn product discussions into clear feature specs and development tasks.</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Waitlist CTA -->
-    <section class="section">
-        <div class="container">
-            <div class="waitlist-cta" id="waitlist">
-                <h2>Join the Waitlist</h2>
-                <p>Be among the first to get early access, special launch pricing, and help shape the future of meeting productivity.</p>
-                
-                <div class="cta-form">
-                    <input type="email" class="cta-input" id="cta-email-input" placeholder="Enter your work email" required>
-                    <button class="cta-btn" id="cta-join-btn" aria-label="Join Summarizer Labs Waitlist">Get Early Access</button>
-                </div>
-                
-                <p style="font-size: 14px; margin-top: 20px; opacity: 0.8; position: relative; z-index: 2;">
-                    No spam. Unsubscribe anytime. Early access invites sent first.
-                </p>
             </div>
         </div>
     </section>
@@ -1226,6 +1336,26 @@
             </div>
         </div>
     </section>
+    
+    <!-- Waitlist CTA -->
+    <section class="section">
+        <div class="container">
+            <div class="waitlist-cta" id="waitlist">
+                <h2>Join the Waitlist</h2>
+                <p>Be among the first to get early access, special launch pricing, and help shape the future of meeting productivity.</p>
+                
+                <div class="cta-form">
+                    <input type="email" class="cta-input" id="cta-email-input" placeholder="Enter your work email" required>
+                    <button class="cta-btn" id="cta-join-btn" aria-label="Join Summarizer Labs Waitlist">Get Early Access</button>
+                </div>
+                
+                <p style="font-size: 14px; margin-top: 20px; opacity: 0.8; position: relative; z-index: 2;">
+                    No spam. Unsubscribe anytime. Early access invites sent first.
+                </p>
+            </div>
+        </div>
+    </section>
+
     <section class="section" style="background-color: var(--light);">
         <div class="container">
             <div style="max-width: 800px; margin: 0 auto; text-align: center;">
