@@ -62,8 +62,8 @@
             "@type": "Offer",
             "price": "0",
             "priceCurrency": "USD",
-            "availability": "https://schema.org/PreOrder",
-            "description": "Early Access Waitlist"
+            "availability": "https://schema.org/InStock",
+            "description": "Free sign up"
         },
         "author": {
             "@type": "Organization",
@@ -141,7 +141,7 @@
             align-items: center;
         }
 
-        .logo {
+        /* .logo {
             display: flex;
             align-items: center;
             gap: 10px;
@@ -161,12 +161,24 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+        } */
+         .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark);
+            text-decoration: none;
+        }
+
+        .logo-accent {
+            color: var(--primary);
         }
 
         .nav-links {
             display: flex;
             gap: 32px;
-            /* ✅ CRITICAL FIX: This ensures text links stay centered with the taller button */
             align-items: center; 
         }
 
@@ -197,7 +209,7 @@
             width: 100%;
         }
 
-        /* The "Join Waitlist" Button Style */
+        /* Sign Up Button Style (formerly Join Waitlist) */
         .nav-cta-btn {
             background-color: var(--primary);
             color: white !important;
@@ -271,14 +283,14 @@
             margin: 0 auto 24px;
         }
         
-        .waitlist-form {
+        .signup-form {
             max-width: 500px;
             margin: 0 auto 0px;
             display: flex;
             gap: 10px;
         }
         
-        .waitlist-input {
+        .signup-input {
             flex: 1;
             padding: 16px 20px;
             border: 2px solid var(--border);
@@ -288,13 +300,13 @@
             font-family: 'Inter', sans-serif;
         }
         
-        .waitlist-input:focus {
+        .signup-input:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.1);
         }
         
-        .waitlist-btn {
+        .signup-btn {
             padding: 16px 32px;
             background: linear-gradient(90deg, var(--primary), var(--primary-dark));
             color: white;
@@ -308,7 +320,7 @@
             white-space: nowrap;
         }
         
-        .waitlist-btn:hover {
+        .signup-btn:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow-hover);
         }
@@ -330,7 +342,7 @@
             font-weight: 600;
             font-size: 14px;
             animation: pulse 2s infinite;
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3); /* Nice orange glow */
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
         }
 
         /* 2. Trust Icons Container */
@@ -339,7 +351,7 @@
             justify-content: center;
             gap: 30px;
             flex-wrap: wrap;
-            margin: 0; /* Tight spacing to the badge */
+            margin: 0;
         }
 
         /* Individual Trust Item */
@@ -348,7 +360,7 @@
             align-items: center;
             gap: 8px;
             color: var(--gray);
-            font-size: 14px; /* Explicit size for readability */
+            font-size: 14px;
             font-weight: 500;
         }
         
@@ -382,7 +394,6 @@
             margin-bottom: 8px;
             line-height: 1;
             display: inline-block;
-            /* width: 150px; */
             height: 55px;
         }
         
@@ -601,8 +612,8 @@
             font-size: 15px;
         }
         
-        /* Waitlist CTA */
-        .waitlist-cta {
+        /* Signup CTA (formerly Waitlist CTA) */
+        .signup-cta {
             text-align: center;
             padding: 80px;
             border-radius: 24px;
@@ -612,7 +623,7 @@
             overflow: hidden;
         }
         
-        .waitlist-cta::before {
+        .signup-cta::before {
             content: '';
             position: absolute;
             top: -50%;
@@ -623,14 +634,14 @@
             z-index: 1;
         }
         
-        .waitlist-cta h2 {
+        .signup-cta h2 {
             font-size: 42px;
             margin-bottom: 20px;
             position: relative;
             z-index: 2;
         }
         
-        .waitlist-cta p {
+        .signup-cta p {
             font-size: 18px;
             max-width: 600px;
             margin: 0 auto 40px;
@@ -758,7 +769,7 @@
             font-size: 14px;
         }
         
-        /* Success Message */
+        /* Success Message (removed but keep style for potential future use) */
         .success-message {
             display: none;
             padding: 20px;
@@ -800,7 +811,7 @@
                 font-size: 44px;
             }
             
-            .waitlist-form,
+            .signup-form,
             .cta-form {
                 flex-direction: column;
             }
@@ -870,23 +881,23 @@
                 grid-template-columns: 1fr;
             }
             
-            .waitlist-cta {
+            .signup-cta {
                 padding: 50px 30px;
             }
             
-            .waitlist-cta h2 {
+            .signup-cta h2 {
                 font-size: 32px;
             }
             
             .features {
                 padding: 50px 30px;
             }
-            .waitlist-form {
+            .signup-form {
                 flex-direction: column;
                 width: 100%;
             }
             
-            .waitlist-btn {
+            .signup-btn {
                 width: 100%;
             }
         }
@@ -917,11 +928,11 @@
                 font-size: 28px;
             }
             
-            .waitlist-cta {
+            .signup-cta {
                 padding: 40px 20px;
             }
             
-            .waitlist-cta h2 {
+            .signup-cta h2 {
                 font-size: 28px;
             }
         }
@@ -938,15 +949,14 @@
     <header>
         <div class="container nav-container">
             <a href="#" class="logo">
-                <!-- <i class="fas fa-brain logo-icon"></i> -->
-                <span>Summarizer Labs</span>
+                Summraizer<span class="logo-accent">Labs</span>
             </a>
             
             <div class="nav-links">
                 <a href="#how-it-works">How It Works</a>
                 <a href="#features">Features</a>
                 <a href="#use-cases">Use Cases</a>
-                <a href="#waitlist" class="nav-cta-btn">Join Waitlist</a>
+                <a href="https://app.summarizerlabs.com/login" class="nav-cta-btn">Sign In</a>
             </div>
             
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -961,15 +971,14 @@
             <h1>The Universal AI Layer for <br><span>Audio & Video Knowledge</span></h1>
             <p>Summarizer Labs transforms <strong>any audio or video content</strong> — meetings, podcasts, YouTube videos, interviews, webinars — into <span>actionable insights</span>. Upload files or paste links from 50+ platforms. Get accurate transcripts, AI summaries, and automatic action items.</p>
             
-            <div class="waitlist-form" id="waitlist-form">
-                <input type="email" class="waitlist-input" id="email-input" placeholder="Enter your work email" required>
-                <button class="waitlist-btn" id="join-btn" aria-label="Get Early Access to Summarizer Labs">Get Early Access</button>
+            <div class="signup-form" id="signup-form">
+                <input type="email" class="signup-input" id="email-input" placeholder="Enter your work email" required>
+                <button class="signup-btn" id="signup-btn" aria-label="Sign up for Summarizer Labs">Get Started Free</button>
             </div>
 
             <div class="hero-incentives">
-                
                 <div class="urgency-badge">
-                    <i class="fas fa-clock"></i> First 100 waitlist users get 50% off
+                    <i class="fas fa-clock"></i> First 100 users get 50% off
                 </div>
 
                 <div class="trust-icons">
@@ -986,17 +995,12 @@
                         <span>50+ Languages</span>
                     </div>
                 </div>
-
-            </div>
-            
-            <div class="success-message" id="success-message">
-                <i class="fas fa-check-circle"></i> Thank you! You've been added to the waitlist. We'll notify you when we launch.
             </div>
             
             <div class="hero-stats">
                 <div class="stat-item">
                     <div class="stat-number">1,250+</div>
-                    <div class="stat-label">Early Access Signups</div>
+                    <div class="stat-label">Active Users</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number">97%</div>
@@ -1338,20 +1342,20 @@
         </div>
     </section>
     
-    <!-- Waitlist CTA -->
+    <!-- Signup CTA -->
     <section class="section">
         <div class="container">
-            <div class="waitlist-cta" id="waitlist">
-                <h2>Join the Waitlist</h2>
-                <p>Be among the first to get early access, special launch pricing, and help shape the future of meeting productivity.</p>
+            <div class="signup-cta" id="signup">
+                <h2>Start for free today</h2>
+                <p>Join thousands of professionals saving hours every week with AI-powered summaries.</p>
                 
                 <div class="cta-form">
                     <input type="email" class="cta-input" id="cta-email-input" placeholder="Enter your work email" required>
-                    <button class="cta-btn" id="cta-join-btn" aria-label="Join Summarizer Labs Waitlist">Get Early Access</button>
+                    <button class="cta-btn" id="cta-signup-btn" aria-label="Sign up for Summarizer Labs">Get Started Free</button>
                 </div>
                 
                 <p style="font-size: 14px; margin-top: 20px; opacity: 0.8; position: relative; z-index: 2;">
-                    No spam. Unsubscribe anytime. Early access invites sent first.
+                    No credit card required. Start summarizing instantly.
                 </p>
             </div>
         </div>
@@ -1392,7 +1396,7 @@
                             <li><a href="#how-it-works">How It Works</a></li>
                             <li><a href="#features">Features</a></li>
                             <li><a href="#use-cases">Use Cases</a></li>
-                            <li><a href="#waitlist">Pricing</a></li>
+                            <li><a href="#pricing">Pricing</a></li>
                         </ul>
                     </div>
                     
@@ -1443,13 +1447,12 @@
             }
         });
         
-        // Form submission handler
-        function handleWaitlistSubmit(emailInputId, btnId, isCTA = false) {
+        // Redirect to signup page with email prefill
+        function handleSignupRedirect(emailInputId, btnId) {
             const emailInput = document.getElementById(emailInputId);
-            const joinBtn = document.getElementById(btnId);
-            const successMessage = document.getElementById('success-message');
+            const signupBtn = document.getElementById(btnId);
             
-            joinBtn.addEventListener('click', async function() {
+            const redirectToSignup = () => {
                 const email = emailInput.value.trim();
                 
                 if (!email) {
@@ -1462,104 +1465,28 @@
                     return;
                 }
                 
-                // Show loading state
-                const originalText = joinBtn.innerHTML;
-                joinBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-                joinBtn.disabled = true;
-                
-                try {
-                    // ✅ FIXED: Use correct Formspree submission
-                    const success = await submitToFormspree(email, isCTA ? 'cta' : 'hero');
-                    
-                    if (success) {
-                        // Show success message
-                        successMessage.style.display = 'block';
-                        successMessage.innerHTML = `
-                            <i class="fas fa-check-circle"></i> 
-                            <strong>Thank you, ${email.split('@')[0]}!</strong><br>
-                            You're #${Math.floor(Math.random() * 1000) + 1250} on our waitlist.
-                            We'll notify you when we launch.
-                        `;
-                        
-                        // Track conversion in Google Analytics
-                        if (typeof gtag !== 'undefined') {
-                            gtag('event', 'waitlist_signup', {
-                                'event_category': 'engagement',
-                                'event_label': 'waitlist',
-                                'value': 1
-                            });
-                        }
-                        
-                        // Track in Cloudflare Analytics if available
-                        if (typeof Cloudflare !== 'undefined') {
-                            Cloudflare.sendEvent('waitlist_signup', {
-                                source: isCTA ? 'cta' : 'hero',
-                                email_hash: btoa(email).substring(0, 10) // Privacy
-                            });
-                        }
-                        
-                        // Reset form
-                        emailInput.value = '';
-                        joinBtn.innerHTML = isCTA ? 'Get Early Access' : 'Join Waitlist';
-                        joinBtn.disabled = false;
-                        
-                        // Scroll to success message
-                        successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        
-                        // Hide success message after 8 seconds
-                        setTimeout(() => {
-                            successMessage.style.display = 'none';
-                        }, 8000);
-                    } else {
-                        throw new Error('Form submission failed');
-                    }
-                    
-                } catch (error) {
-                    alert('There was an error. Please try again or email us at hello@summarizerlabs.com');
-                    joinBtn.innerHTML = originalText;
-                    joinBtn.disabled = false;
+                // Track signup click in Google Analytics
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'signup_click', {
+                        'event_category': 'engagement',
+                        'event_label': 'signup',
+                        'value': 1
+                    });
                 }
-            });
+                
+                // Redirect to app signup page with email parameter
+                const signupUrl = `https://app.summarizerlabs.com/signup?email=${encodeURIComponent(email)}`;
+                window.location.href = signupUrl;
+            };
             
-            // Also handle Enter key
+            signupBtn.addEventListener('click', redirectToSignup);
+            
+            // Handle Enter key
             emailInput.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
-                    joinBtn.click();
+                    redirectToSignup();
                 }
             });
-        }
-
-        async function submitToFormspree(email, source = 'direct') {
-            // Create FormData object (REQUIRED by Formspree)
-            const formData = new FormData();
-            formData.append('email', email);
-            formData.append('_replyto', email); // Optional: auto-reply to user
-            formData.append('_subject', `Waitlist Signup - ${source}`); // Email subject
-            formData.append('source', source); // Custom field
-            formData.append('timestamp', new Date().toISOString()); // Custom field
-            
-            try {
-                // ✅ CORRECT Formspree API call
-                const response = await fetch('https://formspree.io/f/xnjjjrzv', {
-                    method: 'POST',
-                    body: formData, // ✅ Send FormData, NOT JSON
-                    headers: {
-                        'Accept': 'application/json' // ✅ REQUIRED header
-                    }
-                });
-                
-                // Check if successful
-                if (response.ok) {
-                    console.log('✅ Email submitted to Formspree:', email);
-                    return true;
-                } else {
-                    console.error('❌ Formspree error:', await response.text());
-                    return false;
-                }
-            } catch (error) {
-                console.error('❌ Network error:', error);
-                return false;
-            }
         }
         
         // Email validation
@@ -1570,8 +1497,8 @@
         
         // Initialize both forms
         document.addEventListener('DOMContentLoaded', function() {
-            handleWaitlistSubmit('email-input', 'join-btn');
-            handleWaitlistSubmit('cta-email-input', 'cta-join-btn', true);
+            handleSignupRedirect('email-input', 'signup-btn');
+            handleSignupRedirect('cta-email-input', 'cta-signup-btn');
             
             // Smooth scrolling for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
